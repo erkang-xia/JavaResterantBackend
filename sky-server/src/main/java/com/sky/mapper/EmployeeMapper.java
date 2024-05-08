@@ -37,6 +37,12 @@ public interface EmployeeMapper {
      */
     void update(Employee employee);
 
+    /**查找员工by Id
+     *
+     * @param id
+     * @return
+     */
+
     @Select("select * from employee where id = #{id}")
     Employee getById(Long id);
 }
