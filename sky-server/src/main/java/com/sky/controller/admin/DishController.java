@@ -1,6 +1,8 @@
 package com.sky.controller.admin;
 
 import com.sky.dto.DishDTO;
+import com.sky.dto.DishPageQueryDTO;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
 import io.swagger.annotations.Api;
@@ -9,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.JsonProjectingMethodInterceptorFactory;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/admin/dish")
 @RestController
@@ -23,6 +27,24 @@ public class DishController {
     @ApiOperation("upload 新增菜品")
     public Result upload(@RequestBody DishDTO dishDTO) {
         dishService.save(dishDTO);
+        return Result.success();
+
+    }
+
+
+    @GetMapping("/page")
+    @ApiOperation("page 菜品分页查询")
+    public Result<PageResult> page(DishPageQueryDTO dishPageQueryDTO) {
+        log.info("菜品分页查询:{}", dishPageQueryDTO);
+        return Result.success(dishService.pageQuery(dishPageQueryDTO));
+    }
+
+    @DeleteMapping
+    @ApiOperation("delete 批量删除菜品")
+    public Result delete(@RequestParam List<Long> ids) {
+        log.info("批量删除数据: {}",ids);
+        dishService.deleteBatch(ids);
+
         return Result.success();
 
     }

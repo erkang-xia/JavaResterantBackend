@@ -30,7 +30,7 @@ public class CommonController {
     @ApiOperation("upload 上传图片")
     public Result<String> upload(MultipartFile file) {
         log.info("文件上传：{}", file.getOriginalFilename());
-
+        // TODO : add aliOSS auth
         try {
 //            String extName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 //            String objectName = UUID.randomUUID().toString() + extName;
