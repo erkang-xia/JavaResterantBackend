@@ -26,4 +26,14 @@ public interface DishFlavorMapper {
      */
     @Delete("delete from sky_take_out.dish_flavor where dish_id = #{id} ")
     void deleteByDishId(Long id);
+
+    void deleteByDishIds(List<Long> ids);
+
+    /**查询
+     *
+     * @param id
+     * @return
+     */
+    @Select("select * from sky_take_out.dish_flavor where dish_id = #{id} ")
+    List<DishFlavor> getByDishId(Long id);
 }
