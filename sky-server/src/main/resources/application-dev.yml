@@ -8,13 +8,17 @@ sky:
     password: 990724
 
   alioss:
-    access-key-id:
-    bucket-name:
-    access-key-secret:
-    endpoint:
+    access-key-id: LTAI5tFRm58BMUHQsc92ypGP
+    bucket-name: takeout-image-erkang
+    access-key-secret: QqXpg4hnch5SbmcLqlP13A4nSJNOyY
+    endpoint: oss-us-east-1.aliyuncs.com
 
   redis:
     host: localhost
     port: 6379
     password: 123456
     database: 10
+
+  wechat:
+    appid: wxdc15875c3d80914a
+    secret: 059c16dc2e1c936554341d5c8d25c6b1
