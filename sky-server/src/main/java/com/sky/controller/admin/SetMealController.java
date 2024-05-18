@@ -59,4 +59,11 @@ public class SetMealController {
         return Result.success();
     }
 
+    @PostMapping("/status/{status}")
+    @ApiOperation("status 启售停售套餐")
+    public Result startOrStop(@PathVariable Integer status, Long id) {
+        setMealService.startOrStop(status,id);
+        return Result.success();
+    }
+
 }
