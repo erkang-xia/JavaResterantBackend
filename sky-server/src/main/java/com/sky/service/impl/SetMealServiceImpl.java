@@ -83,4 +83,28 @@ public class SetMealServiceImpl implements SetMealService {
         return new PageResult(page.getTotal(), page.getResult());
     }
 
+    /**
+     * 批量删除套餐
+     * @param ids
+     */
+    @Transactional
+    public void deleteBatch(List<Long> ids) {
+        //启售中的套餐不能删除
+        for (Long id : ids) {
+            Setmeal setmeal = setmealMapper.getById(id);
+
+            if(setmeal != null && setmeal.getStatus() == StatusConstant.ENABLE){
+                throw new DeletionNotAllowedException(MessageConstant.SETMEAL_ON_SALE);
+            }
+        }
+
+        ids.forEach(setmealId -> {
+            //删除套餐表中的数据
+            setmealMapper.deleteById(setmealId);
+            //删除套餐菜品关系表中的数据
+            setMealDishMapper.deleteBySetmealId(setmealId);
+        });
+
+    }
+
 }
