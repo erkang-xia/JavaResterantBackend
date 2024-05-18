@@ -168,4 +168,16 @@ public class DishServiceImpl implements DishService {
         }
 
     }
+
+    /**通过分类查找菜品
+     *
+     * @param categoryId
+     * @return
+     */
+
+    //TODO: compare with answer 项目实战day4 1.2.4
+    public List<Dish> list(Long categoryId) {
+        List<Dish> dishes = dishMapper.list(categoryId);
+        return dishes;
+    }
 }

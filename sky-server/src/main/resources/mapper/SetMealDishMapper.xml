@@ -10,7 +10,12 @@
             </foreach>
     </select>
 
+    <insert id="insertBatch" parameterType="list">
+        insert into sky_take_out.setmeal_dish (setmeal_id,dish_id,name,price,copies)
+            values
+                   <foreach collection="mealDishes" item="mealDish" separator=",">
+                       (#{mealDish.setmealId},#{mealDish.dishId},#{mealDish.name},#{mealDish.price},#{mealDish.copies})
+                   </foreach>
 
-
-
+    </insert>
 </mapper>
