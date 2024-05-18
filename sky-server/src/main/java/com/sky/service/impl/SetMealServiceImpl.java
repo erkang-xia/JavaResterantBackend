@@ -8,6 +8,7 @@ import com.sky.constant.StatusConstant;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.dto.SetmealDTO;
+import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
 import com.sky.entity.Setmeal;
@@ -21,6 +22,7 @@ import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.service.SetMealService;
 import com.sky.vo.DishVO;
+import com.sky.vo.SetmealVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +69,18 @@ public class SetMealServiceImpl implements SetMealService {
             setMealDishMapper.insertBatch(mealDishes);
 
         }
+    }
+
+    /**
+     * 分页查询
+     * @param setmealPageQueryDTO
+     * @return
+     */
+    public PageResult pageQuery(SetmealPageQueryDTO setmealPageQueryDTO) {
+        PageHelper.startPage(setmealPageQueryDTO.getPage(),setmealPageQueryDTO.getPageSize());
+        //下一条sql进行分页，自动加入limit关键字分页
+        Page<SetmealVO> page = setmealMapper.pageQuery(setmealPageQueryDTO);
+        return new PageResult(page.getTotal(), page.getResult());
     }
 
 }
