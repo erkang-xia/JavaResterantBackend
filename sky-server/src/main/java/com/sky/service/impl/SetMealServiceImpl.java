@@ -1,16 +1,11 @@
 package com.sky.service.impl;
-
-
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
-import com.sky.dto.DishDTO;
-import com.sky.dto.DishPageQueryDTO;
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.entity.Dish;
-import com.sky.entity.DishFlavor;
 import com.sky.entity.Setmeal;
 import com.sky.entity.SetmealDish;
 import com.sky.exception.DeletionNotAllowedException;
@@ -20,9 +15,8 @@ import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetMealDishMapper;
 import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
-import com.sky.service.DishService;
 import com.sky.service.SetMealService;
-import com.sky.vo.DishVO;
+import com.sky.vo.DishItemVO;
 import com.sky.vo.SetmealVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -170,5 +164,20 @@ public class SetMealServiceImpl implements SetMealService {
         setmealMapper.update(setmeal);
 
     }
+
+    @Override
+    public List<Setmeal> list(Setmeal setmeal) {
+        return  setmealMapper.list(setmeal);
+    }
+
+    /**
+     * 根据id查询菜品选项
+     * @param id
+     * @return
+     */
+    public List<DishItemVO> getDishItemById(Long id) {
+        return setmealMapper.getDishItemBySetmealId(id);
+    }
+
 
 }
