@@ -41,4 +41,16 @@
 
         where id = #{id}
     </update>
+
+    <select id="list" resultType="com.sky.entity.Dish" parameterType="com.sky.entity.Dish">
+        select * from dish
+        <where>
+            <if test="name !=null">and name like concat('%',#{name},'%')</if>
+            <if test="categoryId != null">and category_id = #{categoryId}</if>
+            <if test="price != null">and price = #{price}</if>
+            <if test="status != null">and status = #{status}</if>
+            <if test="updateUser != null"> and update_user = #{updateUser} </if>
+        </where>
+        order by create_time desc
+    </select>
 </mapper>
