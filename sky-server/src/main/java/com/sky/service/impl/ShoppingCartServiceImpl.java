@@ -62,13 +62,56 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 shoppingCart.setImage(setmeal.getImage());
                 shoppingCart.setName(setmeal.getName());
                 shoppingCart.setAmount(setmeal.getPrice());
-
-
             }
-
             shoppingCartMapper.add(shoppingCart);
         }
+    }
 
+    /**查看购物车
+     *
+     * @return
+     */
+    public List<ShoppingCart> showShoppingCart() {
+        Long userId = BaseContext.getCurrentId();
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setUserId(userId);
+        List<ShoppingCart> shoppingCartList = shoppingCartMapper.list(shoppingCart);
+        return shoppingCartList;
+    }
+
+    /**删除一样菜品
+     *
+     * @param shoppingCartDTO
+     */
+    public void sub(ShoppingCartDTO shoppingCartDTO) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        BeanUtils.copyProperties(shoppingCartDTO, shoppingCart);
+        shoppingCart.setUserId(BaseContext.getCurrentId());
+
+        List<ShoppingCart> shoppingCartList = shoppingCartMapper.list(shoppingCart);
+        if (shoppingCartList != null && shoppingCartList.size() > 0) {
+            ShoppingCart cart = shoppingCartList.get(0);
+            Integer number = cart.getNumber()-1;
+            if (number > 0) {
+                cart.setNumber(number);
+                shoppingCartMapper.updateNumberById(cart);
+            }else{
+                shoppingCartMapper.deleteById(cart);
+            }
+
+        }
+
+
+
+
+    }
+
+    /**清空购物车
+     *
+     */
+    public void cleanShoppingCart() {
+        Long userId = BaseContext.getCurrentId();
+        shoppingCartMapper.deleteByUserId(userId);
 
     }
 }

@@ -1,5 +1,6 @@
 package com.sky.controller.user;
 
+import com.sky.context.BaseContext;
 import com.sky.dto.ShoppingCartDTO;
 import com.sky.entity.ShoppingCart;
 import com.sky.result.Result;
@@ -9,10 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/user/shoppingCart")
@@ -28,7 +28,29 @@ public class ShoppingCartController {
         log.info("添加菜品：{}", shoppingCartDTO);
         shoppingCartService.add(shoppingCartDTO);
         return Result.success();
+    }
 
+    @GetMapping("/list")
+    @ApiOperation("list 查看购物车")
+    public Result<List<ShoppingCart>> list(){
 
+        List<ShoppingCart> shoppingCartItems = shoppingCartService.showShoppingCart();
+        return Result.success(shoppingCartItems);
+    }
+
+    @PostMapping("/sub")
+    @ApiOperation("sub 删除一样菜品")
+    public Result subShoppingCart(@RequestBody ShoppingCartDTO shoppingCartDTO) {
+        log.info("删除一样菜品：{}", shoppingCartDTO);
+        shoppingCartService.sub(shoppingCartDTO);
+        return Result.success();
+    }
+
+    @DeleteMapping("/clean")
+    @ApiOperation("clean 清空购物车")
+    public Result cleanShoppingCart() {
+        log.info("清空购物车");
+        shoppingCartService.cleanShoppingCart();
+        return Result.success();
     }
 }
