@@ -19,4 +19,7 @@ public interface UserMapper {
 
     @AutoFill(value = OperationType.INSERT)
     void insert(User user);
+
+    @Select("select * from user where id = #{id}")
+    User getById(Long userId);
 }
