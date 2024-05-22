@@ -49,4 +49,8 @@ public interface OrderMapper {
 
 
     Page<Orders> pageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
+
+
+    @Select("select count(number) from sky_take_out.orders where status = #{status} ")
+    Integer countStatus(Integer status);
 }
