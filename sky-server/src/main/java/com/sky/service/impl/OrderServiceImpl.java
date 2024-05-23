@@ -514,4 +514,6 @@ public class OrderServiceImpl implements OrderService {
         // 将该订单对应的所有菜品信息拼接在一起
         return String.join("", orderDishList);
     }
+
+    //TODO：优化用户下单功能，加入校验逻辑，如果用户的收货地址距离商家门店超出配送范围（配送范围为5公里内），则下单失败。
 }
