@@ -57,4 +57,6 @@ public interface OrderMapper {
 
 
     Double sumByDate(Map map);
+
+    Integer countByDate(Map map);
 }
