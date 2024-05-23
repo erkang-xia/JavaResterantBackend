@@ -9,5 +9,11 @@
 
     </insert>
 
-
+    <select id="countByDate" resultType="java.lang.Integer">
+        select count(id) from user
+        <where>
+            <if test="start != null"> and create_time &gt; #{start}</if>
+            <if test="end != null"> and create_time &lt; #{end}</if>
+        </where>
+    </select>
 </mapper>
