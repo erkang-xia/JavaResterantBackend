@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface DishMapper {
@@ -22,7 +23,7 @@ public interface DishMapper {
      * @param categoryId
      * @return
      */
-    @Select("select count(id) from dish where category_id = #{categoryId}")
+    @Select("select count(id) from sky_take_out.dish where category_id = #{categoryId}")
     Integer countByCategoryId(Long categoryId);
 
     @AutoFill(value = OperationType.INSERT)
@@ -37,7 +38,7 @@ public interface DishMapper {
      * @param id
      * @return
      */
-    @Select("select * from dish where id = #{id}")
+    @Select("select * from sky_take_out.dish where id = #{id}")
     Dish getById(Long id);
 
     /**更具主键删除菜品
@@ -61,4 +62,11 @@ public interface DishMapper {
 
 
     List<Dish> list(Dish dish);
+
+    /**
+     * 根据条件统计菜品数量
+     * @param map
+     * @return
+     */
+    Integer countByMap(Map map);
 }
